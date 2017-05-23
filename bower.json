@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-demo",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Ding Liao <ding.liao@in4mo.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/DingLiao/myFirstExpress",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "d3": "^4.9.1"
+  }
+}
