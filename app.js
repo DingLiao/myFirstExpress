@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var ejs = require('ejs');
+var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -23,6 +25,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+	store: new RedisStore(),
+	secret: 'my session secret',
+	cookie: { maxAge: 5*60*1000}
+}));
+
+app.use(function(req, res, next) {
+	res.locals.user = req.session.user;
+	next();
+});
 
 app.use('/', routes);
 //app.use('/users', users);
