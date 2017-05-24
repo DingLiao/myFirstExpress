@@ -29,11 +29,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
 	store: new RedisStore(),
 	secret: 'my session secret',
-	cookie: { maxAge: 5*60*1000}
+	cookie: { maxAge: 60*1000}
 }));
 
 app.use(function(req, res, next) {
 	res.locals.user = req.session.user;
+	var err = req.session.error;
+	delete req.session.error;
+	res.locals.message = '';
+	console.log(err);
+	if (err) res.locals.message = err;
 	next();
 });
 
